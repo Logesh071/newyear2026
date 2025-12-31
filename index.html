@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Happy New Year 2026</title>
 
-<!-- Tailwind -->
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- GSAP -->
@@ -14,130 +14,136 @@
 <!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<!-- Font -->
+<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
 
 <style>
-body{font-family:'Orbitron',sans-serif}
-
-.neon{
-color:#facc15;
-text-shadow:
-0 0 10px #fff,
-0 0 25px #facc15,
-0 0 50px #facc15,
-0 0 80px #facc15;
+body {
+  font-family: 'Orbitron', sans-serif;
 }
 
-.glass{
-backdrop-filter: blur(14px);
-background: rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.2);
+/* Neon Effect */
+.neon {
+  color: #facc15;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 25px #facc15,
+    0 0 60px #facc15,
+    0 0 100px #facc15;
 }
 
-canvas{pointer-events:none}
-
-.rotate3d{
-transform-style:preserve-3d;
-perspective:1200px;
+/* Glass Card */
+.glass {
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+/* Disable canvas click */
+canvas { pointer-events: none; }
 </style>
 </head>
 
-<body class="bg-black text-white overflow-hidden">
+<body class="bg-gradient-to-br from-black via-purple-900 to-indigo-900 text-white min-h-screen overflow-hidden flex items-center justify-center">
 
-<!-- VIDEO BG -->
-<video autoplay muted loop class="fixed inset-0 w-full h-full object-cover">
-<source src="https://cdn.coverr.co/videos/coverr-fireworks-over-the-city-1574/1080p.mp4">
-</video>
-<div class="fixed inset-0 bg-black/70"></div>
-
-<!-- MUSIC -->
-<audio id="bgm" loop>
-<source src="assest/Mankatha BGM Ringtone Download Mp3.mp3" type="audio/mp3">
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="assest/Mankatha BGM Ringtone Download Mp3.mp3" type="audio/mp3">
 </audio>
 
-<button onclick="startExperience()" class="fixed bottom-5 right-5 z-50 bg-yellow-400 text-black px-5 py-2 rounded-full font-bold">
-▶ START MUSIC
-</button>
+<!-- Main Card -->
+<div class="glass rounded-3xl p-10 text-center max-w-2xl mx-4 shadow-2xl">
 
-<!-- MAIN SECTION -->
-<section class="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4">
+  <h1 class="text-4xl md:text-6xl font-extrabold mb-4 neon" id="title">
+    🎆 HAPPY NEW YEAR 🎆
+  </h1>
 
-<!-- ROTATING HAPPY NEW YEAR -->
-<div id="happyBox" class="rotate3d glass p-10 rounded-3xl mb-10">
-<h1 id="happyText" class="text-4xl sm:text-6xl md:text-7xl font-black neon">
-🎆 HAPPY NEW YEAR 2026 🎆
-</h1>
+  <h2 class="text-6xl md:text-8xl font-black neon mb-6" id="year">
+    2026
+  </h2>
+
+  <p class="text-lg md:text-xl text-gray-200 mb-8" id="message">
+    May 2026 bring you success, happiness, good health, and endless opportunities.
+    Let your dreams shine brighter than fireworks! 🚀✨
+  </p>
+
+  <!-- Countdown -->
+  <div class="grid grid-cols-4 gap-4 mb-8 text-center" id="countdown">
+    <div class="glass p-4 rounded-xl">
+      <div class="text-3xl font-bold" id="days">00</div>
+      <div class="text-sm text-gray-300">Days</div>
+    </div>
+    <div class="glass p-4 rounded-xl">
+      <div class="text-3xl font-bold" id="hours">00</div>
+      <div class="text-sm text-gray-300">Hours</div>
+    </div>
+    <div class="glass p-4 rounded-xl">
+      <div class="text-3xl font-bold" id="minutes">00</div>
+      <div class="text-sm text-gray-300">Minutes</div>
+    </div>
+    <div class="glass p-4 rounded-xl">
+      <div class="text-3xl font-bold" id="seconds">00</div>
+      <div class="text-sm text-gray-300">Seconds</div>
+    </div>
+  </div>
+
+  <!-- Button -->
+  <button id="celebrateBtn"
+    class="px-8 py-3 rounded-full bg-yellow-400 text-black font-bold text-lg hover:scale-110 transition-transform shadow-lg">
+    🎉 Celebrate 2026 🎉
+  </button>
+
 </div>
 
-<!-- COUNTDOWN -->
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-<div class="glass p-5 rounded-xl"><h2 id="days" class="text-3xl neon">00</h2><p>Days</p></div>
-<div class="glass p-5 rounded-xl"><h2 id="hours" class="text-3xl neon">00</h2><p>Hours</p></div>
-<div class="glass p-5 rounded-xl"><h2 id="minutes" class="text-3xl neon">00</h2><p>Minutes</p></div>
-<div class="glass p-5 rounded-xl"><h2 id="seconds" class="text-3xl neon">00</h2><p>Seconds</p></div>
-</div>
-
-</section>
-
-<!-- MIDNIGHT SCREEN -->
-<div id="midnight" class="hidden fixed inset-0 z-40 bg-black/90 flex items-center justify-center text-center">
-<h2 class="text-6xl neon animate-pulse">🔥 WELCOME 2026 🔥</h2>
-</div>
-
-<!-- GSAP ANIMATIONS -->
 <script>
-// 3D ROTATION + GLOW
-gsap.to("#happyBox",{
-rotationY:360,
-rotationX:360,
-duration:12,
-repeat:-1,
-ease:"none"
+/* GSAP Animations */
+gsap.from("#title", { y: -80, opacity: 0, duration: 1.2, ease: "bounce.out" });
+gsap.from("#year", { scale: 0, opacity: 0, duration: 1.2, delay: 0.4, ease: "back.out(1.7)" });
+gsap.from("#message", { y: 40, opacity: 0, duration: 1, delay: 0.8 });
+gsap.from("#countdown div", {
+  y: 30,
+  opacity: 0,
+  duration: 0.8,
+  stagger: 0.2,
+  delay: 1
 });
 
-gsap.fromTo("#happyText",
-{scale:1},
-{scale:1.15,duration:2,yoyo:true,repeat:-1,ease:"power1.inOut"}
-);
-</script>
+/* Countdown Timer */
+const newYear = new Date("January 1, 2026 00:00:10").getTime();
 
-<!-- AUTOPLAY SAFE -->
-<script>
-function startExperience(){
-document.getElementById("bgm").play();
-}
-</script>
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = newYear - now;
 
-<!-- COUNTDOWN -->
-<script>
-const newYear=new Date("Jan 1, 2026 00:00:00").getTime();
-let done=false;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
 
-setInterval(()=>{
-const now=Date.now();
-const diff=newYear-now;
+  document.getElementById("days").innerText = days;
+  document.getElementById("hours").innerText = hours;
+  document.getElementById("minutes").innerText = minutes;
+  document.getElementById("seconds").innerText = seconds;
+}, 1000);
 
-days.innerText=Math.max(0,Math.floor(diff/86400000));
-hours.innerText=Math.max(0,Math.floor(diff/3600000)%24);
-minutes.innerText=Math.max(0,Math.floor(diff/60000)%60);
-seconds.innerText=Math.max(0,Math.floor(diff/1000)%60);
+/* Confetti + Music */
+document.getElementById("celebrateBtn").addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
 
-if(diff<=0 && !done){
-done=true;
-midnight.classList.remove("hidden");
-confetti({particleCount:1200,spread:360});
-document.getElementById("bgm").play();
+  confetti({
+    particleCount: 300,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
 
-if(navigator.vibrate){
-navigator.vibrate([300,200,300,200,600]);
-}
-}
-},1000);
+  gsap.to("#year", {
+    scale: 1.2,
+    duration: 0.3,
+    yoyo: true,
+    repeat: 3
+  });
+});
 </script>
 
 </body>
 </html>
-
-
